@@ -58,7 +58,7 @@
             align-items: center;
             background: transparent;
             overflow-y: auto; 
-            padding-bottom: 20px;
+            padding: 10px 0 20px 0;
             -webkit-backface-visibility: hidden; /* Evita falhas visuais nas animações do iOS */
             backface-visibility: hidden;
         }
@@ -96,7 +96,7 @@
 
         h1 { 
             color: #2c221e; 
-            font-size: 24px; 
+            font-size: 26px; 
             font-weight: normal; 
             margin-bottom: 20px; 
             letter-spacing: 1px;
@@ -134,7 +134,7 @@
             color: #704214; 
             font-weight: bold;
             line-height: 1.8;
-            margin-top: 15px;
+            margin-top: 10px;
             max-width: 100%;
             word-wrap: break-word;
         }
@@ -154,10 +154,21 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        /* Ajuste específico para páginas com duas fotos em conjunto */
-        .duas-imagens img {
-            max-height: 150px;
-            margin: 5px 0;
+        /* Layout em linha para páginas com duas fotos */
+        .container-duas-fotos {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .container-duas-fotos img {
+            width: 48%;
+            max-height: 220px;
+            margin: 0;
         }
 
         /* Tamanho específico para a foto de flores no desktop (Página 10) */
@@ -204,6 +215,30 @@
             box-shadow: none;
         }
 
+        /* Botão discreto para tocar/pausar áudio */
+        .btn-musica {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 20;
+            opacity: 0.75;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            padding: 5px;
+            box-shadow: none;
+            border-radius: 50%;
+        }
+
+        .btn-musica:hover {
+            opacity: 1;
+            background: transparent;
+            transform: scale(1.15);
+            box-shadow: none;
+        }
+
         .numero-pagina {
             position: absolute;
             bottom: 20px;
@@ -219,7 +254,7 @@
                 padding: 30px 20px 50px 20px;
                 min-height: 460px; 
             }
-            h1 { font-size: 20px; }
+            h1 { font-size: 22px; }
             h2 { font-size: 1.1em; } 
             p { font-size: 1em; line-height: 1.5; }
             .poema { font-size: 0.95em; }
@@ -229,8 +264,12 @@
                 margin: 8px 0;
             }
 
-            .duas-imagens img {
-                max-height: 125px;
+            .container-duas-fotos {
+                gap: 8px;
+            }
+
+            .container-duas-fotos img {
+                max-height: 160px;
             }
 
             #pag-10 img {
@@ -241,12 +280,28 @@
 </head>
 <body>
 
+    <!-- Elemento de áudio da música de fundo -->
+    <audio id="musica" src="musica.mp3" loop></audio>
+
     <div class="livro">
+        <!-- Botão para ligar/desligar o som -->
+        <button id="btn-audio" class="btn-musica" onclick="alternarMusica()" title="Tocar/Pausar Música">🎵</button>
+
         <div class="conteudo-livro">
             
-            <!-- PÁGINA 1 -->
+            <!-- PÁGINA 1 (Capa) -->
             <div class="pagina ativa" id="pag-1">
                 <h1>LIVRO DO AMOR</h1>
+                <div style="margin-top: 20px;">
+                    <svg width="110" height="110" viewBox="0 0 100 100">
+                        <path d="M10,30 A20,20 0,0,1 50,30 A20,20 0,0,1 90,30 Q90,60 50,85 Q10,60 10,30 Z" fill="#c0392b" />
+                        <text x="50" y="47" font-size="28" font-family="'Georgia', serif" font-weight="bold" fill="#ffffff" text-anchor="middle" dominant-baseline="central">M</text>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- PÁGINA 2 -->
+            <div class="pagina" id="pag-2">
                 <p>Calma, não é Vibe Coding. É engenharia de prompt</p>
                 <div class="poema" style="text-align: center;">
                     Eu pouco sei HTML, CSS ou JavaScript<br>
@@ -255,60 +310,52 @@
                 </div>
             </div>
             
-            <!-- PÁGINA 2 -->
-            <div class="pagina" id="pag-2">
-                <p>As transições são bregas mesmo, se você passar mais rápido fica melhor</p>
-            </div>
-
-            <!-- PÁGINA 3 (Última frase removida) -->
+            <!-- PÁGINA 3 -->
             <div class="pagina" id="pag-3">
-                <p class="primeiro-paragrafo" style="text-align: left;">Como estou sem a chave de sua casa, decidi fazer um HTML, ao invés de encher sua casa com decorações melosas de amor (frase escrita antes da despedida no aeroporto)</p>
+                <p>As transições são bregas mesmo, se você passar mais rápido fica melhor</p>
             </div>
 
             <!-- PÁGINA 4 -->
             <div class="pagina" id="pag-4">
+                <p class="primeiro-paragrafo" style="text-align: left;">Como estou sem a chave de sua casa, decidi fazer um HTML, ao invés de encher sua casa com decorações melosas de amor (frase escrita antes da despedida no aeroporto)</p>
+            </div>
+
+            <!-- PÁGINA 5 -->
+            <div class="pagina" id="pag-5">
                 <p>Admiro cada pedacinho seu, cada parte da sua trajetória até se tornar a Mariana de hoje.</p>
                 <br>
                 <p>Não sei se já falei isso, mas você ensina. Ensina sobre o amor, ensina coisas técnicas, ensina sobre como a vida pode ser mais bela e mais justa.</p>
             </div>
 
-            <!-- PÁGINA 5 -->
-            <div class="pagina" id="pag-5">
+            <!-- PÁGINA 6 -->
+            <div class="pagina" id="pag-6">
                 <p>Eu não esperava me apaixonar tão rápido, mas você chegou e simplesmente roubou meu coração.</p>
                 <br>
                 <p>Vivemos tanto em tão pouco tempo, né?</p>
             </div>
 
-            <!-- PÁGINA 6 (Musa) -->
-            <div class="pagina duas-imagens" id="pag-6">
-                <div class="poema" style="text-align: center; margin-bottom: 10px;">
-                    Musa, dona do meu coração<br>
-                    Musa, rainha da inspiração
-                </div>
-                <img src="fotos/foto_sorriso_kombi.jpeg" alt="Sorriso na Kombi">
-                <img src="fotos/foto_tronco_holambra.jpeg" alt="Tronco em Holambra">
-            </div>
-
-            <!-- PÁGINA 7 (Nova posição: Carinhos) -->
+            <!-- PÁGINA 7 (Carinhos) -->
             <div class="pagina" id="pag-7">
                 <p>Prometo te encher de carinhos</p>
                 <img src="fotos/foto_encher_carinhos.jpeg" alt="Encher de carinhos">
             </div>
 
-            <!-- PÁGINA 8 (Nova posição: Café) -->
-            <div class="pagina duas-imagens" id="pag-8">
+            <!-- PÁGINA 8 (Café) -->
+            <div class="pagina" id="pag-8">
                 <p>E sempre te servir café</p>
-                <img src="fotos/cafe_com_seu_amor.jpeg" alt="Café com seu amor">
-                <img src="fotos/foto_sorriso_pos_cafe.jpeg" alt="Sorriso pós café">
+                <div class="container-duas-fotos">
+                    <img src="fotos/cafe_com_seu_amor.jpeg" alt="Café com seu amor">
+                    <img src="fotos/foto_sorriso_pos_cafe.jpeg" alt="Sorriso pós café">
+                </div>
             </div>
 
-            <!-- PÁGINA 9 (Nova posição: Hambúrguer) -->
+            <!-- PÁGINA 9 (Hambúrguer) -->
             <div class="pagina" id="pag-9">
                 <p>E testar mais e mais receitas de hambúrguer</p>
                 <img src="fotos/foto_hamburguer.jpeg" alt="Receitas de hambúrguer">
             </div>
 
-            <!-- PÁGINA 10 (Nova posição: Flores Holambra) -->
+            <!-- PÁGINA 10 (Flores Holambra) -->
             <div class="pagina" id="pag-10">
                 <p>Fomos até a terra das Flores somente pra descobrir que a flor mais bela e mais cheirosa vive em Santo André.</p>
                 <img src="fotos/foto_flores_holambra.jpeg" alt="Flores de Holambra">
@@ -320,8 +367,20 @@
                 <img src="fotos/motorista_dedicada_e_responsavel.jpeg" alt="Motorista dedicada e responsável">
             </div>
 
-            <!-- PÁGINA 12 (Pedido / Retribuição) -->
+            <!-- PÁGINA 12 (Musa) -->
             <div class="pagina" id="pag-12">
+                <div class="poema" style="text-align: center; margin-top: 0; margin-bottom: 5px;">
+                    Musa, dona do meu coração<br>
+                    Musa, rainha da inspiração
+                </div>
+                <div class="container-duas-fotos">
+                    <img src="fotos/foto_sorriso_kombi.jpeg" alt="Sorriso na Kombi">
+                    <img src="fotos/foto_tronco_holambra.jpeg" alt="Tronco em Holambra">
+                </div>
+            </div>
+
+            <!-- PÁGINA 13 (Pedido / Retribuição) -->
+            <div class="pagina" id="pag-13">
                 <div class="poema" style="color: #3d332d; font-style: normal; font-weight: normal; margin-bottom: 15px;">
                     <div class="degrau-1">Estamos namorando e isso nós já sabíamos, mas faltava o meu pedido.</div>
                     <div class="degrau-2">Agora não é mais um pedido, é só uma pequena retribuição do que você faz para mim.</div>
@@ -335,14 +394,14 @@
                 </div>
             </div>
 
-            <!-- PÁGINA 13 (Capivara) -->
-            <div class="pagina" id="pag-13">
+            <!-- PÁGINA 14 (Capivara) -->
+            <div class="pagina" id="pag-14">
                 <img src="fotos/foto_capivara.jpeg" alt="Nossa foto com a capivara">
                 <h2>A capivara e eu achamos você toda perfeita!</h2>
             </div>
 
-            <!-- PÁGINA 14 (Final) -->
-            <div class="pagina" id="pag-14">
+            <!-- PÁGINA 15 (Final) -->
+            <div class="pagina" id="pag-15">
                 <img src="fotos/foto_sorriso_holambra.jpeg" alt="Sorriso em Holambra">
                 <div class="poema">
                     Mariana te dou<br>
@@ -364,8 +423,38 @@
 
     <script>
         let paginaAtual = 1;
-        const totalPaginas = 14; 
+        const totalPaginas = 15; 
 
+        // Controle da Música de Fundo
+        const audio = document.getElementById('musica');
+        const btnAudio = document.getElementById('btn-audio');
+        let tocando = false;
+
+        function alternarMusica() {
+            if (tocando) {
+                audio.pause();
+                btnAudio.innerText = '🔇';
+                tocando = false;
+            } else {
+                audio.play().then(() => {
+                    btnAudio.innerText = '🎵';
+                    tocando = true;
+                }).catch(e => console.log("Permissão para áudio pendente:", e));
+            }
+        }
+
+        // Toca a música automaticamente no primeiro clique do usuário em qualquer ponto da tela
+        document.addEventListener('click', function iniciarAudioNoClique() {
+            if (!tocando) {
+                audio.play().then(() => {
+                    btnAudio.innerText = '🎵';
+                    tocando = true;
+                }).catch(() => {});
+            }
+            document.removeEventListener('click', iniciarAudioNoClique);
+        }, { once: true });
+
+        // Navegação das Páginas
         function mudarPagina(direcao) {
             const paginaAntiga = document.getElementById(`pag-${paginaAtual}`);
             if (paginaAntiga) {

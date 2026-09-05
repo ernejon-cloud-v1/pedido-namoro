@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>LIVRO DO AMOR</title>
     <style>
         /* Fundo da tela em tom vintage aconchegante */
@@ -13,7 +13,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            min-height: 100dvh; /* Suporte perfeito para a barra do Safari no iOS */
             margin: 0;
             padding: 15px;
             box-sizing: border-box;
@@ -27,7 +28,7 @@
             padding: 45px 40px 60px 40px; 
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12), 
                         inset 0 0 50px rgba(184, 150, 115, 0.12); 
-            border-radius: 16px; /* Bordas arredondadas solicitadas */
+            border-radius: 16px; 
             border: 1px solid #dcd0c0;
             text-align: center;
             min-height: 540px;
@@ -35,6 +36,7 @@
             flex-direction: column;
             justify-content: space-between;
             perspective: 1200px;
+            -webkit-perspective: 1200px; /* Suporte WebKit/Safari */
             overflow: hidden;
             position: relative;
             box-sizing: border-box;
@@ -44,7 +46,7 @@
             position: relative;
             flex-grow: 1;
             display: flex;
-            overflow: hidden; /* Evita que o giro vaze para fora da tela */
+            overflow: hidden; 
         }
 
         .pagina { 
@@ -56,7 +58,9 @@
             align-items: center;
             background: transparent;
             overflow-y: auto; 
-            padding-bottom: 20px;
+            padding: 10px 0 20px 0;
+            -webkit-backface-visibility: hidden; /* Evita falhas visuais nas animações do iOS */
+            backface-visibility: hidden;
         }
 
         .pagina::-webkit-scrollbar { display: none; }
@@ -65,14 +69,15 @@
         /* Animação de avançar - O "Furacão com Zoom" */
         .pagina.ativa { 
             display: flex; 
-            /* Esse cubic-bezier cria aquele efeito de "quicar" no final */
             animation: furacaoFrente 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; 
+            -webkit-animation: furacaoFrente 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
         }
 
         /* Animação de voltar - O "Tornado Invertido" */
         .pagina.ativa-voltar { 
             display: flex; 
             animation: furacaoTras 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; 
+            -webkit-animation: furacaoTras 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
         }
 
         /* Avançar: A página vem do nada, gira 1080 graus (3 voltas), infla e assenta */
@@ -91,7 +96,7 @@
 
         h1 { 
             color: #2c221e; 
-            font-size: 24px; 
+            font-size: 26px; 
             font-weight: normal; 
             margin-bottom: 20px; 
             letter-spacing: 1px;
@@ -129,24 +134,46 @@
             color: #704214; 
             font-weight: bold;
             line-height: 1.8;
-            margin-top: 15px;
+            margin-top: 10px;
             max-width: 100%;
             word-wrap: break-word;
         }
 
-        .degrau-1 { margin-left: 20px; font-weight: normal; font-style: normal; }
+        .degrau-1 { margin-left: 20px; } 
         .degrau-2 { margin-left: 40px; }
         .degrau-3 { margin-left: 60px; }
         .degrau-4 { margin-left: 80px; }
 
-/* Moldura de foto - Bordas brancas removidas */
+        /* Moldura de foto global (desktop) */
         img { 
             max-width: 100%; 
-            max-height: 210px; 
+            max-height: 300px; 
             object-fit: cover;
             border-radius: 6px; 
-            margin: 12px 0; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+            margin: 10px 0; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Layout em linha para páginas com duas fotos */
+        .container-duas-fotos {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .container-duas-fotos img {
+            width: 48%;
+            max-height: 220px;
+            margin: 0;
+        }
+
+        /* Tamanho específico para a foto de flores no desktop (Página 10) */
+        #pag-10 img {
+            max-height: 210px;
         }
 
         .botoes { 
@@ -157,22 +184,27 @@
             z-index: 10;
         }
 
-        /* Botões com pegada vintage/artesanal */
+        /* Botões estilo vintage/artesanal */
         button { 
-            background-color: #f2ebd9; 
+            background-color: #fcf8f2; 
             color: #704214; 
-            border: 1px solid #b89673; 
-            padding: 8px 20px; 
-            font-size: 14px;
+            border: 2px solid #b89673; 
+            padding: 10px 22px; 
+            font-size: 15px;
             font-family: 'Georgia', serif; 
-            border-radius: 6px; 
+            font-weight: bold;
+            border-radius: 20px; 
             cursor: pointer; 
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(112, 66, 20, 0.15);
+            -webkit-tap-highlight-color: transparent; 
         }
 
-        button:hover { 
+        button:hover:not(:disabled) { 
             background-color: #704214; 
             color: #fcf8f2; 
+            box-shadow: 0 6px 12px rgba(112, 66, 20, 0.3);
+            transform: translateY(-2px);
         }
         
         button:disabled { 
@@ -180,6 +212,7 @@
             color: #b5aca3; 
             cursor: not-allowed; 
             background-color: transparent;
+            box-shadow: none;
         }
 
         .numero-pagina {
@@ -191,14 +224,33 @@
             color: #8c7b6c;
         }
 
+        /* Ajustes para telas menores (celulares) */
         @media (max-width: 600px) {
             .livro {
                 padding: 30px 20px 50px 20px;
-                min-height: 480px; 
+                min-height: 460px; 
             }
-            h1 { font-size: 20px; }
+            h1 { font-size: 22px; }
+            h2 { font-size: 1.1em; } 
             p { font-size: 1em; line-height: 1.5; }
             .poema { font-size: 0.95em; }
+            
+            img { 
+                max-height: 200px; 
+                margin: 8px 0;
+            }
+
+            .container-duas-fotos {
+                gap: 8px;
+            }
+
+            .container-duas-fotos img {
+                max-height: 160px;
+            }
+
+            #pag-10 img {
+                max-height: 170px;
+            }
         }
     </style>
 </head>
@@ -207,55 +259,104 @@
     <div class="livro">
         <div class="conteudo-livro">
             
-            <!-- PÁGINA 1 -->
+            <!-- PÁGINA 1 (Capa) -->
             <div class="pagina ativa" id="pag-1">
                 <h1>LIVRO DO AMOR</h1>
+                <div style="margin-top: 20px;">
+                    <svg width="110" height="110" viewBox="0 0 100 100">
+                        <path d="M10,30 A20,20 0,0,1 50,30 A20,20 0,0,1 90,30 Q90,60 50,85 Q10,60 10,30 Z" fill="#c0392b" />
+                        <text x="50" y="47" font-size="28" font-family="'Georgia', serif" font-weight="bold" fill="#ffffff" text-anchor="middle" dominant-baseline="central">M</text>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- PÁGINA 2 (Antigo texto da Página 1) -->
+            <div class="pagina" id="pag-2">
                 <p>Calma, não é Vibe Coding. É engenharia de prompt</p>
-                <div class="poema">
+                <div class="poema" style="text-align: center;">
                     Eu pouco sei HTML, CSS ou JavaScript<br>
-                    <div class="degrau-1">Mas tem uma coisa que sei fazer:</div>
-                    <div class="degrau-2">Te amar!</div>
+                    Mas tem uma coisa que aprendi a fazer?<br>
+                    Te amar!
                 </div>
             </div>
             
-            <div class="pagina" id="pag-1,5">
+            <!-- PÁGINA 3 -->
+            <div class="pagina" id="pag-3">
                 <p>As transições são bregas mesmo, se você passar mais rápido fica melhor</p>
             </div>
 
-
-            <!-- PÁGINA 2 -->
-            <div class="pagina" id="pag-2">
-                <p class="primeiro-paragrafo" style="text-align: left;">Como estou sem a chave de sua casa, decidi fazer um HTML, ao invés de encher sua casa com decorações melosas de amor</p>
-                <br>
-                <p style="text-align: left;">Ah, por mais que eu saiba que você prefere algo mais resumido, tive que fazer essa apresentação mais longa explicando o porquê te amo tanto.</p>
-                <p style="text-align: left;"><span class="degrau-1">Passe as páginas com calma e leia tudo</span><br>
-                <span class="degrau-2">Sempre que olhar as fotos, lembre-se do que mais te fez feliz naquele momento.</span></p>
-            </div>
-
-            <!-- PÁGINA 3 -->
-            <div class="pagina" id="pag-3">
-                <p>Do café em um prédio curioso em Pinheiros até uma incrível Feijoada em uma cervejaria quase francesa</p>
-                <p>Do babaganoosh até o Netão BomBeef (vulgo melhor hambúrguer do Brasil?)</p>
-                <p>Do uber com som estourado até o Tim nos encarando enquanto aguardamos a pizza (com nossos super vouchers)</p>
-            </div>
-
-            <!-- PÁGINA 4 (Terra das Flores) -->
+            <!-- PÁGINA 4 -->
             <div class="pagina" id="pag-4">
-                <p>Fomos até a terra das Flores somente pra descobrir que a flor mais bela e mais cheirosa vive em Santo André.</p>
-                <!-- Substitua o src abaixo pelo código Base64 da sua foto se quiser total privacidade -->
-                <img src="fotos/foto_flores_holambra.jpeg" alt="Flores de Holambra">
-
-                <p>De um rolê na terra das flores até um culto em Mauá.</p>
+                <p class="primeiro-paragrafo" style="text-align: left;">Como estou sem a chave de sua casa, decidi fazer um HTML, ao invés de encher sua casa com decorações melosas de amor (frase escrita antes da despedida no aeroporto)</p>
             </div>
 
-            <!-- PÁGINA 5 (Pedido / Retribuição) -->
+            <!-- PÁGINA 5 -->
             <div class="pagina" id="pag-5">
+                <p>Admiro cada pedacinho seu, cada parte da sua trajetória até se tornar a Mariana de hoje.</p>
+                <br>
+                <p>Não sei se já falei isso, mas você ensina. Ensina sobre o amor, ensina coisas técnicas, ensina sobre como a vida pode ser mais bela e mais justa.</p>
+            </div>
+
+            <!-- PÁGINA 6 -->
+            <div class="pagina" id="pag-6">
+                <p>Eu não esperava me apaixonar tão rápido, mas você chegou e simplesmente roubou meu coração.</p>
+                <br>
+                <p>Vivemos tanto em tão pouco tempo, né?</p>
+            </div>
+
+            <!-- PÁGINA 7 (Carinhos) -->
+            <div class="pagina" id="pag-7">
+                <p>Prometo te encher de carinhos</p>
+                <img src="fotos/foto_encher_carinhos.jpeg" alt="Encher de carinhos">
+            </div>
+
+            <!-- PÁGINA 8 (Café) -->
+            <div class="pagina" id="pag-8">
+                <p>E sempre te servir café</p>
+                <div class="container-duas-fotos">
+                    <img src="fotos/cafe_com_seu_amor.jpeg" alt="Café com seu amor">
+                    <img src="fotos/foto_sorriso_pos_cafe.jpeg" alt="Sorriso pós café">
+                </div>
+            </div>
+
+            <!-- PÁGINA 9 (Hambúrguer) -->
+            <div class="pagina" id="pag-9">
+                <p>E testar mais e mais receitas de hambúrguer</p>
+                <img src="fotos/foto_hamburguer.jpeg" alt="Receitas de hambúrguer">
+            </div>
+
+            <!-- PÁGINA 10 (Flores Holambra) -->
+            <div class="pagina" id="pag-10">
+                <p>Fomos até a terra das Flores somente pra descobrir que a flor mais bela e mais cheirosa vive em Santo André.</p>
+                <img src="fotos/foto_flores_holambra.jpeg" alt="Flores de Holambra">
+            </div>
+
+            <!-- PÁGINA 11 (Motorista) -->
+            <div class="pagina" id="pag-11">
+                <p>"Slk tio, mo molezinha aqui, tio"</p>
+                <img src="fotos/motorista_dedicada_e_responsavel.jpeg" alt="Motorista dedicada e responsável">
+            </div>
+
+            <!-- PÁGINA 12 (Musa) -->
+            <div class="pagina" id="pag-12">
+                <div class="poema" style="text-align: center; margin-top: 0; margin-bottom: 5px;">
+                    Musa, dona do meu coração<br>
+                    Musa, rainha da inspiração
+                </div>
+                <div class="container-duas-fotos">
+                    <img src="fotos/foto_sorriso_kombi.jpeg" alt="Sorriso na Kombi">
+                    <img src="fotos/foto_tronco_holambra.jpeg" alt="Tronco em Holambra">
+                </div>
+            </div>
+
+            <!-- PÁGINA 13 (Pedido / Retribuição) -->
+            <div class="pagina" id="pag-13">
                 <div class="poema" style="color: #3d332d; font-style: normal; font-weight: normal; margin-bottom: 15px;">
                     <div class="degrau-1">Estamos namorando e isso nós já sabíamos, mas faltava o meu pedido.</div>
                     <div class="degrau-2">Agora não é mais um pedido, é só uma pequena retribuição do que você faz para mim.</div>
                 </div>
                 
-                <div class="poema">
+                <div class="poema" style="color: #3d332d; font-style: normal; font-weight: normal;">
                     <div class="degrau-2">Eu te amo, pretinha!</div>
                     <div class="degrau-3">Amava-te ontem, amo-te hoje e te amarei sempre!</div>
                     <div class="degrau-4">Do seu namorado</div>
@@ -263,15 +364,14 @@
                 </div>
             </div>
 
-            <!-- PÁGINA 6 (Semi-Final - Capivara) -->
-            <div class="pagina" id="pag-6">
+            <!-- PÁGINA 14 (Capivara) -->
+            <div class="pagina" id="pag-14">
                 <img src="fotos/foto_capivara.jpeg" alt="Nossa foto com a capivara">
-
                 <h2>A capivara e eu achamos você toda perfeita!</h2>
             </div>
 
-            <!-- PÁGINA 7 (Final - Sorriso Holambra) -->
-            <div class="pagina" id="pag-7">
+            <!-- PÁGINA 15 (Final) -->
+            <div class="pagina" id="pag-15">
                 <img src="fotos/foto_sorriso_holambra.jpeg" alt="Sorriso em Holambra">
                 <div class="poema">
                     Mariana te dou<br>
@@ -292,28 +392,29 @@
     </div>
 
     <script>
-     let paginaAtual = 1;
-        const totalPaginas = 7; 
+        let paginaAtual = 1;
+        const totalPaginas = 15; 
 
         function mudarPagina(direcao) {
-            // Remove as classes de animação da página antiga
             const paginaAntiga = document.getElementById(`pag-${paginaAtual}`);
-            paginaAntiga.classList.remove('ativa', 'ativa-voltar');
+            if (paginaAntiga) {
+                paginaAntiga.classList.remove('ativa', 'ativa-voltar');
+            }
             
             paginaAtual += direcao;
             
             if (paginaAtual < 1) paginaAtual = 1;
             if (paginaAtual > totalPaginas) paginaAtual = totalPaginas;
             
-            // Adiciona a classe de animação correta na nova página
             const novaPagina = document.getElementById(`pag-${paginaAtual}`);
-            if (direcao === 1) {
-                novaPagina.classList.add('ativa'); // Virando para frente
-            } else {
-                novaPagina.classList.add('ativa-voltar'); // Virando para trás
+            if (novaPagina) {
+                if (direcao === 1) {
+                    novaPagina.classList.add('ativa'); 
+                } else {
+                    novaPagina.classList.add('ativa-voltar'); 
+                }
             }
             
-            // Controle dos botões
             document.getElementById('btn-anterior').disabled = (paginaAtual === 1);
             
             if (paginaAtual === totalPaginas) {
