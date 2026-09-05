@@ -27,7 +27,7 @@
             padding: 45px 40px 60px 40px; 
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12), 
                         inset 0 0 50px rgba(184, 150, 115, 0.12); 
-            border-radius: 16px; /* Bordas arredondadas solicitadas */
+            border-radius: 16px; 
             border: 1px solid #dcd0c0;
             text-align: center;
             min-height: 540px;
@@ -44,7 +44,7 @@
             position: relative;
             flex-grow: 1;
             display: flex;
-            overflow: hidden; /* Evita que o giro vaze para fora da tela */
+            overflow: hidden; 
         }
 
         .pagina { 
@@ -65,7 +65,6 @@
         /* Animação de avançar - O "Furacão com Zoom" */
         .pagina.ativa { 
             display: flex; 
-            /* Esse cubic-bezier cria aquele efeito de "quicar" no final */
             animation: furacaoFrente 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; 
         }
 
@@ -134,19 +133,24 @@
             word-wrap: break-word;
         }
 
-        .degrau-1 { margin-left: 20px; } /* Ajuste feito aqui para manter a padronização das fontes */
+        .degrau-1 { margin-left: 20px; } 
         .degrau-2 { margin-left: 40px; }
         .degrau-3 { margin-left: 60px; }
         .degrau-4 { margin-left: 80px; }
 
-        /* Moldura de foto */
+        /* Moldura de foto global (desktop) */
         img { 
             max-width: 100%; 
-            max-height: 320px; /* Tamanho da imagem aumentado globalmente conforme pedido */
+            max-height: 320px; 
             object-fit: cover;
             border-radius: 6px; 
             margin: 15px 0; 
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Tamanho específico para a página 4 no desktop */
+        #pag-4 img {
+            max-height: 210px;
         }
 
         .botoes { 
@@ -157,7 +161,7 @@
             z-index: 10;
         }
 
-        /* Botões mais bonitos com pegada vintage/artesanal aprimorada */
+        /* Botões estilo vintage/artesanal */
         button { 
             background-color: #fcf8f2; 
             color: #704214; 
@@ -196,14 +200,25 @@
             color: #8c7b6c;
         }
 
+        /* Ajustes específicos para telas menores (celulares) */
         @media (max-width: 600px) {
             .livro {
                 padding: 30px 20px 50px 20px;
                 min-height: 480px; 
             }
             h1 { font-size: 20px; }
+            h2 { font-size: 1.1em; } /* Reduzido levemente para caber melhor no celular */
             p { font-size: 1em; line-height: 1.5; }
             .poema { font-size: 0.95em; }
+            
+            /* Ajuste na altura máxima das imagens no celular para não cortar os textos */
+            img { 
+                max-height: 220px; 
+                margin: 10px 0;
+            }
+            #pag-4 img {
+                max-height: 180px;
+            }
         }
     </style>
 </head>
@@ -216,7 +231,6 @@
             <div class="pagina ativa" id="pag-1">
                 <h1>LIVRO DO AMOR</h1>
                 <p>Calma, não é Vibe Coding. É engenharia de prompt</p>
-                <!-- Frase centralizada -->
                 <div class="poema" style="text-align: center;">
                     Eu pouco sei HTML, CSS ou JavaScript<br>
                     Mas tem uma coisa que aprendi a fazer?<br>
@@ -248,9 +262,7 @@
             <!-- PÁGINA 4 (Terra das Flores) -->
             <div class="pagina" id="pag-4">
                 <p>Fomos até a terra das Flores somente pra descobrir que a flor mais bela e mais cheirosa vive em Santo André.</p>
-                <!-- Tamanho da imagem aumentado via CSS geral -->
                 <img src="fotos/foto_flores_holambra.jpeg" alt="Flores de Holambra">
-                <!-- Frase sobre o culto em Mauá retirada conforme as instruções -->
             </div>
 
             <!-- PÁGINA 5 (Pedido / Retribuição) -->
@@ -260,7 +272,6 @@
                     <div class="degrau-2">Agora não é mais um pedido, é só uma pequena retribuição do que você faz para mim.</div>
                 </div>
                 
-                <!-- Posicionamento da segunda frase igual a primeira -->
                 <div class="poema" style="color: #3d332d; font-style: normal; font-weight: normal;">
                     <div class="degrau-2">Eu te amo, pretinha!</div>
                     <div class="degrau-3">Amava-te ontem, amo-te hoje e te amarei sempre!</div>
@@ -271,14 +282,12 @@
 
             <!-- PÁGINA 6 (Semi-Final - Capivara) -->
             <div class="pagina" id="pag-6">
-                <!-- Tamanho da imagem aumentado via CSS geral -->
                 <img src="fotos/foto_capivara.jpeg" alt="Nossa foto com a capivara">
                 <h2>A capivara e eu achamos você toda perfeita!</h2>
             </div>
 
             <!-- PÁGINA 7 (Final - Sorriso Holambra) -->
             <div class="pagina" id="pag-7">
-                <!-- Tamanho da imagem aumentado via CSS geral -->
                 <img src="fotos/foto_sorriso_holambra.jpeg" alt="Sorriso em Holambra">
                 <div class="poema">
                     Mariana te dou<br>
@@ -303,7 +312,6 @@
         const totalPaginas = 7; 
 
         function mudarPagina(direcao) {
-            // Remove as classes de animação da página antiga
             const paginaAntiga = document.getElementById(`pag-${paginaAtual}`);
             if (paginaAntiga) {
                 paginaAntiga.classList.remove('ativa', 'ativa-voltar');
@@ -314,17 +322,15 @@
             if (paginaAtual < 1) paginaAtual = 1;
             if (paginaAtual > totalPaginas) paginaAtual = totalPaginas;
             
-            // Adiciona a classe de animação correta na nova página
             const novaPagina = document.getElementById(`pag-${paginaAtual}`);
             if (novaPagina) {
                 if (direcao === 1) {
-                    novaPagina.classList.add('ativa'); // Virando para frente
+                    novaPagina.classList.add('ativa'); 
                 } else {
-                    novaPagina.classList.add('ativa-voltar'); // Virando para trás
+                    novaPagina.classList.add('ativa-voltar'); 
                 }
             }
             
-            // Controle dos botões
             document.getElementById('btn-anterior').disabled = (paginaAtual === 1);
             
             if (paginaAtual === totalPaginas) {
