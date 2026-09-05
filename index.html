@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>LIVRO DO AMOR</title>
     <style>
         /* Fundo da tela em tom vintage aconchegante */
@@ -13,7 +13,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            min-height: 100dvh; /* Suporte perfeito para a barra do Safari no iOS */
             margin: 0;
             padding: 15px;
             box-sizing: border-box;
@@ -35,6 +36,7 @@
             flex-direction: column;
             justify-content: space-between;
             perspective: 1200px;
+            -webkit-perspective: 1200px; /* Suporte WebKit/Safari */
             overflow: hidden;
             position: relative;
             box-sizing: border-box;
@@ -57,6 +59,8 @@
             background: transparent;
             overflow-y: auto; 
             padding-bottom: 20px;
+            -webkit-backface-visibility: hidden; /* Evita falhas visuais nas animações do iOS */
+            backface-visibility: hidden;
         }
 
         .pagina::-webkit-scrollbar { display: none; }
@@ -66,12 +70,14 @@
         .pagina.ativa { 
             display: flex; 
             animation: furacaoFrente 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; 
+            -webkit-animation: furacaoFrente 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
         }
 
         /* Animação de voltar - O "Tornado Invertido" */
         .pagina.ativa-voltar { 
             display: flex; 
             animation: furacaoTras 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; 
+            -webkit-animation: furacaoTras 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
         }
 
         /* Avançar: A página vem do nada, gira 1080 graus (3 voltas), infla e assenta */
@@ -174,6 +180,7 @@
             cursor: pointer; 
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(112, 66, 20, 0.15);
+            -webkit-tap-highlight-color: transparent; /* Remove o destaque escuro ao tocar no iOS */
         }
 
         button:hover:not(:disabled) { 
@@ -200,18 +207,17 @@
             color: #8c7b6c;
         }
 
-        /* Ajustes específicos para telas menores (celulares) */
+        /* Ajustes específicos para telas menores (celulares Android / iPhone) */
         @media (max-width: 600px) {
             .livro {
                 padding: 30px 20px 50px 20px;
-                min-height: 480px; 
+                min-height: 460px; 
             }
             h1 { font-size: 20px; }
-            h2 { font-size: 1.1em; } /* Reduzido levemente para caber melhor no celular */
+            h2 { font-size: 1.1em; } 
             p { font-size: 1em; line-height: 1.5; }
             .poema { font-size: 0.95em; }
             
-            /* Ajuste na altura máxima das imagens no celular para não cortar os textos */
             img { 
                 max-height: 220px; 
                 margin: 10px 0;
@@ -242,14 +248,11 @@
                 <p>As transições são bregas mesmo, se você passar mais rápido fica melhor</p>
             </div>
 
-
             <!-- PÁGINA 2 -->
             <div class="pagina" id="pag-2">
                 <p class="primeiro-paragrafo" style="text-align: left;">Como estou sem a chave de sua casa, decidi fazer um HTML, ao invés de encher sua casa com decorações melosas de amor (frase escrita antes da despedida no aeroporto)</p>
                 <br>
-                <p style="text-align: left;">Ah, por mais que eu saiba que você prefere algo mais resumido, tive que fazer essa apresentação mais longa explicando o porquê te amo tanto.</p>
                 <p style="text-align: left;"><span class="degrau-1">Passe as páginas com calma e leia tudo</span><br>
-                <span class="degrau-2">Sempre que olhar as fotos, lembre-se do que mais te fez feliz naquele momento.</span></p>
             </div>
 
             <!-- PÁGINA 3 -->
@@ -308,7 +311,7 @@
     </div>
 
     <script>
-     let paginaAtual = 1;
+        let paginaAtual = 1;
         const totalPaginas = 7; 
 
         function mudarPagina(direcao) {
