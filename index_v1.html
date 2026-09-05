@@ -134,19 +134,19 @@
             word-wrap: break-word;
         }
 
-        .degrau-1 { margin-left: 20px; } /* Ajuste feito aqui para manter a padronização das fontes */
+        .degrau-1 { margin-left: 20px; font-weight: normal; font-style: normal; }
         .degrau-2 { margin-left: 40px; }
         .degrau-3 { margin-left: 60px; }
         .degrau-4 { margin-left: 80px; }
 
-        /* Moldura de foto */
+/* Moldura de foto - Bordas brancas removidas */
         img { 
             max-width: 100%; 
-            max-height: 320px; /* Tamanho da imagem aumentado globalmente conforme pedido */
+            max-height: 210px; 
             object-fit: cover;
             border-radius: 6px; 
-            margin: 15px 0; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin: 12px 0; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.18);
         }
 
         .botoes { 
@@ -157,26 +157,22 @@
             z-index: 10;
         }
 
-        /* Botões mais bonitos com pegada vintage/artesanal aprimorada */
+        /* Botões com pegada vintage/artesanal */
         button { 
-            background-color: #fcf8f2; 
+            background-color: #f2ebd9; 
             color: #704214; 
-            border: 2px solid #b89673; 
-            padding: 10px 22px; 
-            font-size: 15px;
+            border: 1px solid #b89673; 
+            padding: 8px 20px; 
+            font-size: 14px;
             font-family: 'Georgia', serif; 
-            font-weight: bold;
-            border-radius: 20px; 
+            border-radius: 6px; 
             cursor: pointer; 
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(112, 66, 20, 0.15);
+            transition: all 0.3s;
         }
 
-        button:hover:not(:disabled) { 
+        button:hover { 
             background-color: #704214; 
             color: #fcf8f2; 
-            box-shadow: 0 6px 12px rgba(112, 66, 20, 0.3);
-            transform: translateY(-2px);
         }
         
         button:disabled { 
@@ -184,7 +180,6 @@
             color: #b5aca3; 
             cursor: not-allowed; 
             background-color: transparent;
-            box-shadow: none;
         }
 
         .numero-pagina {
@@ -216,11 +211,10 @@
             <div class="pagina ativa" id="pag-1">
                 <h1>LIVRO DO AMOR</h1>
                 <p>Calma, não é Vibe Coding. É engenharia de prompt</p>
-                <!-- Frase centralizada -->
-                <div class="poema" style="text-align: center;">
+                <div class="poema">
                     Eu pouco sei HTML, CSS ou JavaScript<br>
-                    Mas tem uma coisa que aprendi a fazer?<br>
-                    Te amar!
+                    <div class="degrau-1">Mas tem uma coisa que sei fazer:</div>
+                    <div class="degrau-2">Te amar!</div>
                 </div>
             </div>
             
@@ -231,7 +225,7 @@
 
             <!-- PÁGINA 2 -->
             <div class="pagina" id="pag-2">
-                <p class="primeiro-paragrafo" style="text-align: left;">Como estou sem a chave de sua casa, decidi fazer um HTML, ao invés de encher sua casa com decorações melosas de amor (frase escrita antes da despedida no aeroporto)</p>
+                <p class="primeiro-paragrafo" style="text-align: left;">Como estou sem a chave de sua casa, decidi fazer um HTML, ao invés de encher sua casa com decorações melosas de amor</p>
                 <br>
                 <p style="text-align: left;">Ah, por mais que eu saiba que você prefere algo mais resumido, tive que fazer essa apresentação mais longa explicando o porquê te amo tanto.</p>
                 <p style="text-align: left;"><span class="degrau-1">Passe as páginas com calma e leia tudo</span><br>
@@ -248,9 +242,10 @@
             <!-- PÁGINA 4 (Terra das Flores) -->
             <div class="pagina" id="pag-4">
                 <p>Fomos até a terra das Flores somente pra descobrir que a flor mais bela e mais cheirosa vive em Santo André.</p>
-                <!-- Tamanho da imagem aumentado via CSS geral -->
+                <!-- Substitua o src abaixo pelo código Base64 da sua foto se quiser total privacidade -->
                 <img src="fotos/foto_flores_holambra.jpeg" alt="Flores de Holambra">
-                <!-- Frase sobre o culto em Mauá retirada conforme as instruções -->
+
+                <p>De um rolê na terra das flores até um culto em Mauá.</p>
             </div>
 
             <!-- PÁGINA 5 (Pedido / Retribuição) -->
@@ -260,8 +255,7 @@
                     <div class="degrau-2">Agora não é mais um pedido, é só uma pequena retribuição do que você faz para mim.</div>
                 </div>
                 
-                <!-- Posicionamento da segunda frase igual a primeira -->
-                <div class="poema" style="color: #3d332d; font-style: normal; font-weight: normal;">
+                <div class="poema">
                     <div class="degrau-2">Eu te amo, pretinha!</div>
                     <div class="degrau-3">Amava-te ontem, amo-te hoje e te amarei sempre!</div>
                     <div class="degrau-4">Do seu namorado</div>
@@ -271,14 +265,13 @@
 
             <!-- PÁGINA 6 (Semi-Final - Capivara) -->
             <div class="pagina" id="pag-6">
-                <!-- Tamanho da imagem aumentado via CSS geral -->
                 <img src="fotos/foto_capivara.jpeg" alt="Nossa foto com a capivara">
+
                 <h2>A capivara e eu achamos você toda perfeita!</h2>
             </div>
 
             <!-- PÁGINA 7 (Final - Sorriso Holambra) -->
             <div class="pagina" id="pag-7">
-                <!-- Tamanho da imagem aumentado via CSS geral -->
                 <img src="fotos/foto_sorriso_holambra.jpeg" alt="Sorriso em Holambra">
                 <div class="poema">
                     Mariana te dou<br>
@@ -305,9 +298,7 @@
         function mudarPagina(direcao) {
             // Remove as classes de animação da página antiga
             const paginaAntiga = document.getElementById(`pag-${paginaAtual}`);
-            if (paginaAntiga) {
-                paginaAntiga.classList.remove('ativa', 'ativa-voltar');
-            }
+            paginaAntiga.classList.remove('ativa', 'ativa-voltar');
             
             paginaAtual += direcao;
             
@@ -316,12 +307,10 @@
             
             // Adiciona a classe de animação correta na nova página
             const novaPagina = document.getElementById(`pag-${paginaAtual}`);
-            if (novaPagina) {
-                if (direcao === 1) {
-                    novaPagina.classList.add('ativa'); // Virando para frente
-                } else {
-                    novaPagina.classList.add('ativa-voltar'); // Virando para trás
-                }
+            if (direcao === 1) {
+                novaPagina.classList.add('ativa'); // Virando para frente
+            } else {
+                novaPagina.classList.add('ativa-voltar'); // Virando para trás
             }
             
             // Controle dos botões
