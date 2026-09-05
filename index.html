@@ -147,15 +147,21 @@
         /* Moldura de foto global (desktop) */
         img { 
             max-width: 100%; 
-            max-height: 320px; 
+            max-height: 300px; 
             object-fit: cover;
             border-radius: 6px; 
-            margin: 15px 0; 
+            margin: 10px 0; 
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        /* Tamanho específico para a página 4 no desktop */
-        #pag-4 img {
+        /* Ajuste específico para páginas com duas fotos em conjunto */
+        .duas-imagens img {
+            max-height: 150px;
+            margin: 5px 0;
+        }
+
+        /* Tamanho específico para a foto de flores no desktop */
+        #pag-12 img {
             max-height: 210px;
         }
 
@@ -180,7 +186,7 @@
             cursor: pointer; 
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(112, 66, 20, 0.15);
-            -webkit-tap-highlight-color: transparent; /* Remove o destaque escuro ao tocar no iOS */
+            -webkit-tap-highlight-color: transparent; 
         }
 
         button:hover:not(:disabled) { 
@@ -207,7 +213,7 @@
             color: #8c7b6c;
         }
 
-        /* Ajustes específicos para telas menores (celulares Android / iPhone) */
+        /* Ajustes para telas menores (celulares) */
         @media (max-width: 600px) {
             .livro {
                 padding: 30px 20px 50px 20px;
@@ -219,11 +225,16 @@
             .poema { font-size: 0.95em; }
             
             img { 
-                max-height: 220px; 
-                margin: 10px 0;
+                max-height: 200px; 
+                margin: 8px 0;
             }
-            #pag-4 img {
-                max-height: 180px;
+
+            .duas-imagens img {
+                max-height: 125px;
+            }
+
+            #pag-12 img {
+                max-height: 170px;
             }
         }
     </style>
@@ -244,32 +255,82 @@
                 </div>
             </div>
             
-            <div class="pagina" id="pag-1,5">
-                <p>As transições são bregas mesmo, se você passar mais rápido fica melhor</p>
-            </div>
-
             <!-- PÁGINA 2 -->
             <div class="pagina" id="pag-2">
-                <p class="primeiro-paragrafo" style="text-align: left;">Como estou sem a chave de sua casa, decidi fazer um HTML, ao invés de encher sua casa com decorações melosas de amor (frase escrita antes da despedida no aeroporto)</p>
-                <br>
-                <p style="text-align: left;"><span class="degrau-1">Passe as páginas com calma e leia tudo</span><br>
+                <p>As transições são bregas mesmo, se você passar mais rápido fica melhor</p>
             </div>
 
             <!-- PÁGINA 3 -->
             <div class="pagina" id="pag-3">
+                <p class="primeiro-paragrafo" style="text-align: left;">Como estou sem a chave de sua casa, decidi fazer um HTML, ao invés de encher sua casa com decorações melosas de amor (frase escrita antes da despedida no aeroporto)</p>
+                <br>
+                <p style="text-align: left;"><span class="degrau-1">Passe as páginas com calma e leia tudo</span></p>
+            </div>
+
+            <!-- PÁGINA 4 -->
+            <div class="pagina" id="pag-4">
                 <p>Do café em um prédio curioso em Pinheiros até uma incrível Feijoada em uma cervejaria quase francesa</p>
                 <p>Do babaganoosh até o Netão BomBeef (vulgo melhor hambúrguer do Brasil?)</p>
                 <p>Do uber com som estourado até o Tim nos encarando enquanto aguardamos a pizza (com nossos super vouchers)</p>
             </div>
 
-            <!-- PÁGINA 4 (Terra das Flores) -->
-            <div class="pagina" id="pag-4">
+            <!-- PÁGINA 5 (Novo acréscimo) -->
+            <div class="pagina" id="pag-5">
+                <p>Admiro cada pedacinho seu, cada parte da sua trajetória até se tornar a Mariana de hoje.</p>
+                <br>
+                <p>Não sei se já falei isso, mas você ensina. Ensina sobre o amor, ensina coisas técnicas, ensina sobre como a vida pode ser mais bela e mais justa.</p>
+            </div>
+
+            <!-- PÁGINA 6 (Novo acréscimo) -->
+            <div class="pagina" id="pag-6">
+                <p>Eu não esperava me apaixonar tão rápido, mas você chegou e simplesmente roubou meu coração.</p>
+                <br>
+                <p>Vivemos tanto em tão pouco tempo, né?</p>
+            </div>
+
+            <!-- PÁGINA 7 (Novo acréscimo - Hambúrguer) -->
+            <div class="pagina" id="pag-7">
+                <p>E testar mais e mais receitas de hambúrguer</p>
+                <img src="fotos/foto_hamburguer.jpeg" alt="Receitas de hambúrguer">
+            </div>
+
+            <!-- PÁGINA 8 (Novo acréscimo - Musa com 2 fotos) -->
+            <div class="pagina duas-imagens" id="pag-8">
+                <div class="poema" style="text-align: center; margin-bottom: 10px;">
+                    Musa, dona do meu coração<br>
+                    Musa, rainha da inspiração
+                </div>
+                <img src="fotos/foto_sorriso_kombi.jpeg" alt="Sorriso na Kombi">
+                <img src="fotos/foto_tronco_holambra.jpeg" alt="Tronco em Holambra">
+            </div>
+
+            <!-- PÁGINA 9 (Novo acréscimo - Carinhos) -->
+            <div class="pagina" id="pag-9">
+                <p>Prometo te encher de carinhos</p>
+                <img src="fotos/foto_encher_carinhos.jpeg" alt="Encher de carinhos">
+            </div>
+
+            <!-- PÁGINA 10 (Novo acréscimo - Café com 2 fotos) -->
+            <div class="pagina duas-imagens" id="pag-10">
+                <p>E sempre te servir café</p>
+                <img src="fotos/cafe_com_seu_amor.jpeg" alt="Café com seu amor">
+                <img src="fotos/foto_sorriso_pos_cafe.jpeg" alt="Sorriso pós café">
+            </div>
+
+            <!-- PÁGINA 11 (Novo acréscimo - Motorista) -->
+            <div class="pagina" id="pag-11">
+                <p>"Slk tio, mo molezinha aqui, tio"</p>
+                <img src="fotos/motorista_dedicada_e_responsavel.jpeg" alt="Motorista dedicada e responsável">
+            </div>
+
+            <!-- PÁGINA 12 (Antiga Página 4 - Terra das Flores) -->
+            <div class="pagina" id="pag-12">
                 <p>Fomos até a terra das Flores somente pra descobrir que a flor mais bela e mais cheirosa vive em Santo André.</p>
                 <img src="fotos/foto_flores_holambra.jpeg" alt="Flores de Holambra">
             </div>
 
-            <!-- PÁGINA 5 (Pedido / Retribuição) -->
-            <div class="pagina" id="pag-5">
+            <!-- PÁGINA 13 (Antiga Página 5 - Pedido / Retribuição) -->
+            <div class="pagina" id="pag-13">
                 <div class="poema" style="color: #3d332d; font-style: normal; font-weight: normal; margin-bottom: 15px;">
                     <div class="degrau-1">Estamos namorando e isso nós já sabíamos, mas faltava o meu pedido.</div>
                     <div class="degrau-2">Agora não é mais um pedido, é só uma pequena retribuição do que você faz para mim.</div>
@@ -283,14 +344,14 @@
                 </div>
             </div>
 
-            <!-- PÁGINA 6 (Semi-Final - Capivara) -->
-            <div class="pagina" id="pag-6">
+            <!-- PÁGINA 14 (Antiga Página 6 - Capivara) -->
+            <div class="pagina" id="pag-14">
                 <img src="fotos/foto_capivara.jpeg" alt="Nossa foto com a capivara">
                 <h2>A capivara e eu achamos você toda perfeita!</h2>
             </div>
 
-            <!-- PÁGINA 7 (Final - Sorriso Holambra) -->
-            <div class="pagina" id="pag-7">
+            <!-- PÁGINA 15 (Antiga Página 7 - Final) -->
+            <div class="pagina" id="pag-15">
                 <img src="fotos/foto_sorriso_holambra.jpeg" alt="Sorriso em Holambra">
                 <div class="poema">
                     Mariana te dou<br>
@@ -312,7 +373,7 @@
 
     <script>
         let paginaAtual = 1;
-        const totalPaginas = 7; 
+        const totalPaginas = 15; 
 
         function mudarPagina(direcao) {
             const paginaAntiga = document.getElementById(`pag-${paginaAtual}`);
